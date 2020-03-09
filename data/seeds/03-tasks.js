@@ -3,7 +3,7 @@ const faker = require('faker')
 const fakeTask = () => ({
   description: faker.lorem.sentence(10),
   notes: faker.random.words(11),
-  projectID: faker.random.number(25),
+  project_id: faker.random.number(25),
   completed: faker.random.boolean()
 })
 
