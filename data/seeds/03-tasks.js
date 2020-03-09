@@ -3,15 +3,15 @@ const faker = require('faker')
 const fakeTask = () => ({
   description: faker.lorem.sentence(10),
   notes: faker.random.words(11),
-  project_id: faker.random.number(25),
+  project_id: faker.random.number({ min: 81, max: 100 }),
   completed: faker.random.boolean()
 })
 
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   const fakeTasks = []
   const num = 20
 
-  for (let i = 0; i < num; i++ ) {
+  for (let i = 0; i < num; i++) {
     fakeTasks.push(fakeTask())
   }
   // Deletes ALL existing entries

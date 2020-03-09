@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-      const projects = await db('projects')
+    const projects = await db('projects')
 
-      res.json(projects)
+    res.json(projects)
   } catch (error) {
     next(error);
   }
@@ -22,8 +22,15 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
-router.get("/:id/tasks", async (req, res, next) => {
+router.post("/:id/tasks", async (req, res, next) => {
   try {
+    const newTask = {
+      ...req.body,
+      project_id: req.params.id
+    }
+    const projectTasksID = await db("tasks").insert(newTask)
+    const task = await db("tasks").where("id", projectTasksID)
+    res.json(task)
   } catch (error) {
     next(error);
   }
