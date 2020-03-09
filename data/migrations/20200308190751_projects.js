@@ -36,19 +36,22 @@ exports.up = function(knex) {
       resources.text("description");
     }),
     knex.schema.createTable("project_resources", project_resources => {
-        project_resources
-          .integer("projectID")
-          .notNullable()
-          .references("projects.id");
-        project_resources.integer("resourcesID").notNullable().references('resources.id')
-        project_resources.primary(["projectID", "resourcesID"])
-      }),
+      project_resources
+        .integer("projectID")
+        .notNullable()
+        .references("projects.id");
+      project_resources
+        .integer("resourcesID")
+        .notNullable()
+        .references("resources.id");
+      project_resources.primary(["projectID", "resourcesID"]);
+    })
   ]);
 };
 
 exports.down = async function(knex) {
-    await knex.schema.dropTableIfExists("project_resources");
-    await knex.schema.dropTableIfExists("resources");
+  await knex.schema.dropTableIfExists("project_resources");
+  await knex.schema.dropTableIfExists("resources");
   await knex.schema.dropTableIfExists("tasks");
   await knex.schema.dropTableIfExists("projects");
 };
